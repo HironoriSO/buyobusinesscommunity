@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>問合せ - Buyokai Business Community</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --ink: #1a1a18;
+      --paper: #f8f6f1;
+      --muted: #9a9690;
+      --accent: #c8b89a;
+      --error: #d32f2f;
+      --success: #388e3c;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--paper);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Subtle grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.4;
+    }
+
+    /* Thin decorative border */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 24px;
+      border: 1px solid rgba(26,26,24,0.12);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Corner marks */
+    .corner {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      z-index: 6;
+    }
+    .corner--tl { top: 36px; left: 36px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+    .corner--tr { top: 36px; right: 36px; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+    .corner--bl { bottom: 36px; left: 36px; border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+    .corner--br { bottom: 36px; right: 36px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+
+    .container {
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 40px 24px;
+      opacity: 0;
+      animation: reveal 1s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
+    }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--ink);
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-style: italic;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .required {
+      color: var(--error);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(26,26,24,0.2);
+      background-color: rgba(255,255,255,0.5);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background-color: rgba(255,255,255,0.8);
+      box-shadow: 0 0 0 3px rgba(200,184,154,0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      font-size: 13px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 24px;
+      border: 1px solid var(--accent);
+      background-color: var(--accent);
+      color: white;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 400;
+    }
+
+    button:hover {
+      background-color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button[type="reset"] {
+      background-color: transparent;
+      color: var(--accent);
+    }
+
+    button[type="reset"]:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .alert {
+      padding: 16px;
+      margin-bottom: 24px;
+      border-left: 3px solid;
+      background-color: rgba(0,0,0,0.02);
+      font-size: 13px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: slideDown 0.4s ease forwards;
+    }
+
+    @keyframes slideDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .alert.error {
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    .alert.success {
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .alert.info {
+      border-color: var(--accent);
+      color: var(--ink);
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    button:disabled .spinner {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
+
+  <div class="container">
+    <a href="index0.html" class="back-link">← ホームに戻る</a>
+
+    <h1>お問合せ</h1>
+    <p class="subtitle">Contact Us</p>
+
+    <div id="alerts-container"></div>
+
+    <form id="contactForm" method="POST" action="contact-handler.php" novalidate>
+      
+      <div class="form-group">
+        <label for="name">お名前 <span class="required">*</span></label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">メールアドレス <span class="required">*</span></label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">電話番号</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="company">会社名</label>
+        <input type="text" id="company" name="company">
+      </div>
+
+      <div class="form-group">
+        <label for="subject">件名 <span class="required">*</span></label>
+        <select id="subject" name="subject" required>
+          <option value="">選択してください</option>
+          <option value="inquiry">一般的なお問合せ</option>
+          <option value="membership">会員について</option>
+          <option value="event">イベントについて</option>
+          <option value="partnership">提携・協業について</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">メッセージ <span class="required">*</span></label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" id="submitBtn">送信</button>
+        <button type="reset">リセット</button>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="contact.js"></script>
+
+</body>
+</html>
