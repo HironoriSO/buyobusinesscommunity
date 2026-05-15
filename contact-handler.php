@@ -8,8 +8,8 @@ header('Content-Type: application/json');
 
 // Configuration
 $config = [
-    'recipient_email' => 'contact@buyobusiness.jp',
-    'from_email' => 'noreply@buyobusiness.jp',
+    'recipient_email' => 'contact@buyobusiness.com',
+    'from_email' => 'noreply@buyobusiness.com',
     'site_name' => 'Buyokai Business Community',
     'max_message_length' => 5000,
 ];
@@ -149,7 +149,7 @@ $email_body .= <<<EOT
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-このメールに返信いただくか、contact@buyobusiness.jpまでお問合せください。
+このメールに返信いただくか、contact@buyobusiness.comまでお問合せください。
 
 {$config['site_name']}
 
