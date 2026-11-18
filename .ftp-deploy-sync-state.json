@@ -1,0 +1,37 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1785747107383,
+    "data": [
+        {
+            "type": "file",
+            "name": "contact-handler.php",
+            "size": 6080,
+            "hash": "29b6ffe160abd71dfd7788277d7c34f93f8ac9fd707bbfe416445c302312f26c"
+        },
+        {
+            "type": "file",
+            "name": "contact.html",
+            "size": 8555,
+            "hash": "4212cd9dd7d2039257aa9cc81279237d972541231400403518272b1f8b1b3731"
+        },
+        {
+            "type": "file",
+            "name": "contact.js",
+            "size": 4390,
+            "hash": "81156fd28d079453a5914861456de024ffa746652c4d43d38f44708be953d4c1"
+        },
+        {
+            "type": "file",
+            "name": "deploy.yml",
+            "size": 67,
+            "hash": "39652411c50c0792505032dc66f2004e21a89a75634b3f105de36b2d857c5d9d"
+        },
+        {
+            "type": "file",
+            "name": "index0.html",
+            "size": 4707,
+            "hash": "a485629fb7dc6f122fe9b7fe3efb2f11fc56b9cedfdf1bb14ece4889f9221c3e"
+        }
+    ]
+}
