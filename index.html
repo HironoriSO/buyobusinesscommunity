@@ -1,178 +1,928 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buyokai Business Community</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>武陽ビジネスコミュニティ（BBC）| buyobusiness.com</title>
+<meta name="description" content="武陽ビジネスコミュニティ（BBC）は神戸市を拠点に活動する経営者・事業者のための交流コミュニティです。年3回の例会を通じてビジネスの連携と成長を促進します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 武陽カラー：浅みどり（校歌「武陽ケ丘のあさみどり」より）＋銀色（校章由来） */
+  --ink:#1c2e24;
+  --paper:#faf9f4;
+  --cream:#f0ede4;
+  --accent:#5a8f5f;         /* 浅みどり（あさみどり）ユーカリの若葉色 */
+  --accent-h:#6fa774;       /* 浅みどり明色 */
+  --accent-d:#3d6b45;       /* 浅みどり深色 */
+  --gold:#a8a090;           /* 銀系（兵高銀色） */
+  --gold-l:#d4cfc1;         /* 銀色明色 */
+  --warm:#6b6f6b;
+  --light:#dcd9d0;
+  --card:#fff;
+  --r:5px;
+  --sh:0 2px 16px rgba(0,0,0,.05);
+  --shh:0 6px 28px rgba(0,0,0,.1);
+  --ez:cubic-bezier(.4,0,.2,1);
+  --error:#d32f2f;
+  --success:#2e7d32
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--ink);background:var(--paper);line-height:1.85;-webkit-font-smoothing:antialiased}
 
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+/* NAV */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,249,246,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.05);transition:box-shadow .3s}
+.topbar.scrolled{box-shadow:0 2px 18px rgba(0,0,0,.07)}
+.tb-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink)}
+.logo-m{width:34px;height:34px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:3px;font-weight:900;font-size:.75rem;letter-spacing:.08em}
+.logo-t{font-weight:800;font-size:.95rem;letter-spacing:.06em}
+.logo-s{font-size:.6rem;color:var(--warm);letter-spacing:.14em;margin-top:1px}
+.dnav{display:flex;gap:1.4rem;list-style:none;flex-wrap:wrap}
+.dnav a{text-decoration:none;color:var(--warm);font-size:.75rem;font-weight:500;letter-spacing:.02em;position:relative;transition:color .25s}
+.dnav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--accent);transition:width .25s var(--ez)}
+.dnav a:hover{color:var(--ink)}.dnav a:hover::after{width:100%}
+.ham{display:none;background:none;border:none;cursor:pointer;width:26px;height:18px;position:relative;z-index:110}
+.ham span{display:block;width:100%;height:2px;background:var(--ink);position:absolute;left:0;transition:.3s var(--ez)}
+.ham span:nth-child(1){top:0}.ham span:nth-child(2){top:8px}.ham span:nth-child(3){top:16px}
+.ham.on span:nth-child(1){top:8px;transform:rotate(45deg)}.ham.on span:nth-child(2){opacity:0}.ham.on span:nth-child(3){top:8px;transform:rotate(-45deg)}
+.mmenu{display:none;position:fixed;inset:0;background:var(--paper);z-index:105;flex-direction:column;padding:5rem 2rem 2rem;gap:1rem;overflow-y:auto}
+.mmenu.show{display:flex}
+.mmenu a{text-decoration:none;color:var(--ink);font-size:1rem;font-weight:600;padding:.5rem 0;border-bottom:1px solid var(--light)}
 
-    :root {
-      --ink: #1a1a18;
-      --paper: #f8f6f1;
-      --muted: #9a9690;
-      --accent: #c8b89a;
-    }
+/* HERO */
+.hero{min-height:80vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(155deg,#1c2e24 0%,#243c2e 45%,#1c2e24 100%);margin-top:54px}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 50%,rgba(90,143,95,.18) 0%,transparent 55%),radial-gradient(ellipse at 75% 35%,rgba(168,160,144,.1) 0%,transparent 50%)}
+.hero-g{position:absolute;inset:0;opacity:.035;background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);background-size:60px 60px}
+.hero-c{position:relative;z-index:2;text-align:center;padding:2rem}
+.hero-badge{display:inline-block;padding:.35rem 1.2rem;border:1px solid rgba(255,255,255,.15);border-radius:50px;color:rgba(255,255,255,.55);font-size:.68rem;letter-spacing:.18em;margin-bottom:1.8rem;font-weight:500;animation:fu .8s ease .1s backwards}
+.hero h1{font-family:'Shippori Mincho',serif;font-size:clamp(1.8rem,5.5vw,3.6rem);font-weight:700;color:#fff;line-height:1.25;margin-bottom:.4rem;letter-spacing:.03em;animation:fu .8s ease .25s backwards}
+.hero h1 em{font-style:normal;color:#a8c4ab}
+.hero-sub{font-size:clamp(.85rem,2vw,1.15rem);color:rgba(255,255,255,.45);font-weight:300;letter-spacing:.08em;margin-bottom:2.5rem;animation:fu .8s ease .4s backwards}
+.hero-cta{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2.2rem;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:.88rem;border-radius:var(--r);transition:.25s var(--ez);letter-spacing:.04em;animation:fu .8s ease .55s backwards}
+.hero-cta:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 8px 24px rgba(90,143,95,.3)}
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
-    html, body {
-      width: 100%;
-      height: 100%;
-    }
+/* EUCALYPTUS (兵庫高校 校樹) */
+.hero-euca{position:absolute;bottom:0;height:100%;width:auto;max-width:30%;z-index:1;pointer-events:none;opacity:.8}
+.hero-euca.left{left:-2%}
+.hero-euca.right{right:-2%;transform:scaleX(-1)}
+.euca-sway{transform-origin:200px 700px;animation:sway 8s ease-in-out infinite}
+.euca-sway-r{transform-origin:200px 700px;animation:sway-r 9s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-0.5deg)}50%{transform:rotate(0.8deg)}}
+@keyframes sway-r{0%,100%{transform:rotate(0.6deg)}50%{transform:rotate(-0.7deg)}}
 
-    body {
-      background-color: var(--paper);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      overflow: hidden;
-      position: relative;
-    }
+/* QUICK STRIP under hero */
+.quick{background:var(--ink);padding:1.2rem 1.5rem;position:relative;z-index:3}
+.quick-in{max-width:1100px;margin:0 auto;display:flex;gap:2rem;align-items:center;flex-wrap:wrap;justify-content:center}
+.quick-item{display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.7);font-size:.8rem;font-weight:500}
+.quick-item strong{color:#fff;font-weight:700}
+.quick-sep{width:1px;height:20px;background:rgba(255,255,255,.12)}
 
-    /* Subtle grain texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 10;
-      opacity: 0.4;
-    }
+/* SECTIONS */
+section{padding:5rem 1.5rem}
+.wrap{max-width:1100px;margin:0 auto}
+.sl{display:inline-flex;align-items:center;gap:.6rem;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
+.sl::before{content:'';width:1.1rem;height:2px;background:var(--accent)}
+.st{font-family:'Shippori Mincho',serif;font-size:clamp(1.35rem,3.5vw,2rem);font-weight:700;line-height:1.3;margin-bottom:.6rem}
+.sd{font-size:.92rem;color:var(--warm);max-width:600px;line-height:1.9}
+.bg-c{background:var(--cream)}
 
-    /* Thin decorative border */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 24px;
-      border: 1px solid rgba(26,26,24,0.12);
-      pointer-events: none;
-      z-index: 5;
-    }
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.5rem;align-items:center}
+.about-vis{aspect-ratio:1/1;background:linear-gradient(135deg,#f4f2ed 0%,#faf9f6 100%);border:1px solid var(--light);border-radius:var(--r);overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative;padding:1.5rem}
+.about-euca{width:85%;height:85%;animation:breath 6s ease-in-out infinite}
+@keyframes breath{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.about-stats{display:flex;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
+.about-stat{padding:.7rem 1.2rem;background:var(--cream);border-radius:var(--r);text-align:center;flex:1;min-width:120px}
+.about-stat strong{display:block;font-size:1.3rem;color:var(--accent);font-weight:900}
+.about-stat span{font-size:.72rem;color:var(--warm)}
+.about-values{display:flex;gap:.8rem;margin-top:1.5rem;flex-wrap:wrap}
+.vtag{display:inline-flex;align-items:center;gap:.35rem;padding:.4rem .9rem;background:var(--cream);border-radius:50px;font-size:.78rem;font-weight:500;color:var(--ink)}
+.vtag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
 
-    .wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      opacity: 0;
-      transform: translateY(16px);
-      animation: reveal 1.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s forwards;
-    }
+/* HERITAGE */
+.heritage{margin-top:3.5rem;padding:2.5rem;background:linear-gradient(135deg,#faf9f6 0%,#f4f2ed 100%);border-left:4px solid var(--gold);border-radius:var(--r);position:relative;overflow:hidden}
+.heritage::before{content:'';position:absolute;top:0;right:0;width:160px;height:160px;background:radial-gradient(circle,rgba(90,143,95,0.08) 0%,transparent 70%);pointer-events:none}
+.heritage-label{font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--gold);margin-bottom:1rem;text-transform:uppercase}
+.heritage-body{position:relative;z-index:2}
+.heritage-body p{font-family:'Shippori Mincho',serif;font-size:.95rem;color:var(--ink);line-height:2;margin-bottom:1rem}
+.heritage-body p:last-child{margin-bottom:0}
+.heritage-body strong{color:var(--accent);font-weight:700}
 
-    @keyframes reveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+/* SCHEDULE */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;margin-top:2rem}
+.sc-card{background:var(--card);border-radius:var(--r);padding:1.8rem;box-shadow:var(--sh);border-left:4px solid var(--accent);transition:.25s var(--ez)}
+.sc-card:hover{box-shadow:var(--shh);transform:translateY(-3px)}
+.sc-date{font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:.4rem}
+.sc-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
+.sc-meta{font-size:.82rem;color:var(--warm)}
+.sc-note{font-size:.82rem;color:var(--warm);margin-top:.5rem;font-style:italic}
+.sc-apply{display:inline-block;margin-top:.8rem;padding:.45rem 1.2rem;background:var(--accent);color:#fff;text-decoration:none;font-size:.78rem;font-weight:700;border-radius:var(--r);transition:.2s var(--ez)}
+.sc-apply:hover{background:var(--accent-h)}
+.sc-card.sc-past{opacity:.6}
+.sc-done{display:inline-block;margin-top:.8rem;padding:.45rem 1.2rem;background:var(--light);color:var(--warm);font-size:.78rem;font-weight:700;border-radius:var(--r)}
 
-    .logo-container {
-      width: min(320px, 55vw);
-      aspect-ratio: 1;
-      position: relative;
-      margin-bottom: 12px;
-    }
+/* MEMBERSHIP */
+.mem-intro{margin-top:2rem;margin-bottom:2rem}
+.mem-intro p{font-size:.92rem;color:var(--warm);line-height:1.9}
+.mem-split{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.mc{background:var(--card);border-radius:var(--r);padding:2rem;box-shadow:var(--sh);position:relative;overflow:hidden;transition:.25s var(--ez)}
+.mc:hover{box-shadow:var(--shh);transform:translateY(-3px)}
+.mc.feat{border:2px solid var(--accent)}
+.mc.feat::after{content:'おすすめ';position:absolute;top:14px;right:-30px;background:var(--accent);color:#fff;font-size:.6rem;font-weight:700;padding:.15rem 2rem;transform:rotate(45deg);letter-spacing:.06em}
+.mc h3{font-size:1.05rem;font-weight:700;text-align:center;margin-bottom:.2rem}
+.mc-price{text-align:center;font-size:2rem;font-weight:900;margin:.8rem 0 .2rem}
+.mc-price span{font-size:.8rem;font-weight:400;color:var(--warm)}
+.mc-note{text-align:center;font-size:.75rem;color:var(--warm);margin-bottom:1.2rem}
+.mc-list{list-style:none;margin-bottom:1.5rem}
+.mc-list li{display:flex;align-items:center;gap:.5rem;padding:.55rem 0;border-bottom:1px solid var(--light);font-size:.85rem}
+.mc-list li::before{content:'✓';color:var(--accent);font-weight:700;font-size:.78rem;flex-shrink:0}
+.btn{display:inline-block;padding:.7rem 1.8rem;border-radius:var(--r);font-weight:700;font-size:.82rem;text-decoration:none;transition:.2s var(--ez);letter-spacing:.04em;text-align:center;width:100%}
+.btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:var(--accent-h)}
+.btn-o{border:2px solid var(--ink);color:var(--ink);background:transparent}.btn-o:hover{background:var(--ink);color:#fff}
+.mem-flow{margin-top:2.5rem}
+.mem-flow h3{font-size:1rem;font-weight:700;margin-bottom:1rem}
+.flow-steps{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.flow-step{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;background:var(--card);border-radius:var(--r);box-shadow:var(--sh);font-size:.82rem;font-weight:500}
+.flow-step .num{width:24px;height:24px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0}
+.flow-arrow{color:var(--light);font-size:1.2rem}
 
-    .logo-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      mix-blend-mode: multiply;
-    }
+/* FEE TABLE */
+.fee-box{margin-top:2.5rem;background:var(--card);border-radius:var(--r);padding:1.8rem;box-shadow:var(--sh)}
+.fee-box h3{font-size:1rem;font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--accent);display:inline-block}
+.fee-table{width:100%;border-collapse:collapse;margin-top:.5rem}
+.fee-table th{text-align:left;padding:.7rem .8rem;font-size:.75rem;font-weight:700;color:var(--warm);letter-spacing:.08em;background:var(--cream);border-bottom:1px solid var(--light)}
+.fee-table td{padding:.9rem .8rem;font-size:.88rem;color:var(--ink);border-bottom:1px solid var(--light)}
+.fee-amt{font-weight:700;color:var(--accent);font-size:1rem!important;white-space:nowrap}
+.fee-total td{background:rgba(90,143,95,.04);font-weight:500}
+.fee-total .fee-amt{font-size:1.15rem!important}
 
-    /* Soft radial glow behind logo */
-    .logo-container::before {
-      content: '';
-      position: absolute;
-      inset: -20%;
-      background: radial-gradient(ellipse at center, rgba(200,184,154,0.18) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
-    }
+/* ANNOUNCEMENTS */
+.ann-list{margin-top:2rem;display:flex;flex-direction:column;gap:1.2rem}
+.ann{background:var(--card);border-radius:var(--r);padding:1.5rem 1.8rem;box-shadow:var(--sh);transition:.25s var(--ez)}
+.ann:hover{box-shadow:var(--shh)}
+.ann.pin{border-left:4px solid var(--accent)}
+.ann-h{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;flex-wrap:wrap}
+.ann-b{font-size:.65rem;font-weight:700;color:var(--accent);background:rgba(90,143,95,.06);padding:.15rem .6rem;border-radius:3px}
+.ann-d{font-size:.72rem;color:var(--warm);letter-spacing:.04em}
+.ann h3{font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.ann p{font-size:.88rem;color:var(--warm);line-height:1.8}
 
-    .divider {
-      width: 1px;
-      height: 32px;
-      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-      margin: 20px 0 16px;
-      opacity: 0;
-      animation: reveal 1.2s ease 1.2s forwards;
-    }
+/* ADS */
+.ads-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem;margin-top:2rem}
+.ad{background:var(--card);border-radius:var(--r);padding:1.5rem 1.8rem;box-shadow:var(--sh);border-top:3px solid var(--gold);transition:.25s var(--ez)}
+.ad:hover{box-shadow:var(--shh);transform:translateY(-3px)}
+.ad-from{font-size:.72rem;color:var(--gold);font-weight:700;letter-spacing:.06em;margin-bottom:.4rem}
+.ad h3{font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.ad p{font-size:.85rem;color:var(--warm);line-height:1.8}
+.ad-link{display:inline-block;margin-top:.7rem;font-size:.8rem;color:var(--accent);font-weight:600;text-decoration:none}
+.ad-link:hover{text-decoration:underline}
+.note-box{font-size:.82rem;color:var(--warm);background:rgba(0,0,0,.02);border:1px dashed var(--light);border-radius:var(--r);padding:1rem 1.2rem;margin-top:2rem;line-height:1.8}
 
-    .tagline {
-      font-size: clamp(10px, 1.5vw, 12px);
-      font-weight: 300;
-      letter-spacing: 0.35em;
-      color: var(--muted);
-      text-transform: uppercase;
-      font-style: italic;
-      opacity: 0;
-      animation: reveal 1.2s ease 1.5s forwards;
-      margin-bottom: 32px;
-    }
+/* COMPOSITION */
+.comp-hero{display:flex;align-items:center;gap:2.5rem;margin-top:2rem;margin-bottom:2.5rem;padding:2rem;background:var(--card);border-radius:var(--r);box-shadow:var(--sh);flex-wrap:wrap}
+.comp-big{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding:.5rem 2rem;border-right:1px solid var(--light)}
+.comp-num{font-family:'Shippori Mincho',serif;font-size:4.5rem;font-weight:700;color:var(--accent);line-height:1}
+.comp-label{font-size:.78rem;color:var(--warm);letter-spacing:.12em;margin-top:.3rem}
+.comp-quote{flex:1;min-width:260px;font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--ink);line-height:1.9;font-weight:500}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.comp-box{background:var(--card);border-radius:var(--r);padding:1.8rem;box-shadow:var(--sh)}
+.comp-box h3{font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--ink);padding-bottom:.5rem;border-bottom:2px solid var(--accent);display:inline-block}
+.comp-bars{list-style:none}
+.comp-bars li{display:grid;grid-template-columns:130px 1fr 40px;gap:.8rem;align-items:center;padding:.35rem 0}
+.cb-name{font-size:.78rem;color:var(--ink);font-weight:500}
+.cb-bar{height:8px;background:var(--cream);border-radius:4px;overflow:hidden}
+.cb-fill{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-h));border-radius:4px;transition:width 1s var(--ez)}
+.cb-num{font-size:.82rem;color:var(--warm);text-align:right;font-weight:700}
+.comp-note{font-size:.78rem;color:var(--warm);margin-top:1rem;line-height:1.7;padding-top:.8rem;border-top:1px solid var(--light)}
+.ward-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:.5rem;margin-top:.8rem}
+.ward{text-align:center;padding:.6rem .3rem;background:var(--cream);border-radius:var(--r)}
+.ward strong{display:block;font-size:1.1rem;color:var(--accent);font-weight:900}
+.ward span{font-size:.7rem;color:var(--warm)}
+.gov-grid{margin-top:2rem;padding:1.8rem;background:var(--card);border-radius:var(--r);box-shadow:var(--sh)}
+.gov-list{display:flex;gap:.8rem;flex-wrap:wrap}
+.gov-item{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--cream);border-radius:var(--r)}
+.gov-role{font-size:.8rem;font-weight:700;color:var(--ink)}
+.gov-count{font-size:.78rem;color:var(--accent);font-weight:700}
 
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      opacity: 0;
-      animation: reveal 1.2s ease 1.8s forwards;
-    }
+/* COLUMNS */
+.col-list{display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+.col{background:var(--card);border-radius:var(--r);padding:1.8rem;box-shadow:var(--sh);transition:.25s var(--ez)}
+.col:hover{box-shadow:var(--shh)}
+.col-m{font-size:.72rem;color:var(--warm);letter-spacing:.04em;margin-bottom:.5rem}
+.col h3{font-family:'Shippori Mincho',serif;font-size:1.1rem;font-weight:700;margin-bottom:.6rem;line-height:1.5}
+.col p{font-size:.88rem;color:var(--warm);line-height:1.9}
 
-    .nav-links a {
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.3s ease;
-      border: 1px solid rgba(200,184,154,0.4);
-      padding: 8px 16px;
-    }
+/* BOARD */
+.brd-list{display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+.brd{background:var(--card);border-radius:var(--r);padding:1.5rem 1.8rem;box-shadow:var(--sh);transition:.25s var(--ez)}
+.brd:hover{box-shadow:var(--shh)}
+.brd-m{font-size:.72rem;color:var(--warm);margin-bottom:.4rem}
+.brd h3{font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.brd>p{font-size:.88rem;color:var(--warm);line-height:1.8}
+.brd-reps{margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--light)}
+.rp{padding:.7rem 0 .7rem 1rem;border-left:2px solid var(--light);margin-bottom:.5rem}
+.rp-m{font-size:.68rem;color:var(--warm);margin-bottom:.2rem}
+.rp p{font-size:.82rem;color:#555;line-height:1.7}
+.rp-btn{display:inline-flex;align-items:center;gap:.3rem;margin-top:.8rem;padding:.4rem 1rem;border:1px solid var(--light);border-radius:3px;background:none;font-size:.75rem;color:var(--warm);cursor:pointer;font-family:inherit;transition:.2s}
+.rp-btn:hover{border-color:var(--accent);color:var(--accent)}
+.brd-tag{display:inline-block;font-size:.65rem;background:rgba(168,160,144,.08);color:var(--gold);padding:.1rem .5rem;border-radius:3px;font-weight:600;margin-left:.5rem}
+.brd-rules{margin-top:2rem;padding:1.2rem 1.5rem;background:rgba(0,0,0,.02);border:1px solid var(--light);border-radius:var(--r)}
+.brd-rules h4{font-size:.85rem;font-weight:700;margin-bottom:.5rem;color:var(--ink)}
+.brd-rules ul{list-style:none}
+.brd-rules li{font-size:.8rem;color:var(--warm);padding:.3rem 0;display:flex;align-items:baseline;gap:.4rem}
+.brd-rules li::before{content:'─';color:var(--light);flex-shrink:0}
 
-    .nav-links a:hover {
-      color: var(--ink);
-      border-color: var(--ink);
-    }
+/* CONTACT */
+.ct-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem}
+.ct-dark{background:linear-gradient(155deg,#1c2e24,#243c2e);color:#fff;padding:5rem 1.5rem}
+.ct-dark .sl{color:var(--gold-l)}.ct-dark .sl::before{background:var(--gold-l)}
+.ct-dark .st{color:#fff}.ct-dark .sd{color:rgba(255,255,255,.5)}
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-size:.75rem;font-weight:500;color:rgba(255,255,255,.5);margin-bottom:.3rem;letter-spacing:.05em}
+.fg input,.fg textarea,.fg select{width:100%;padding:.8rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);color:#fff;font-family:inherit;font-size:.88rem;outline:none;transition:.2s}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.2)}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold-l);background:rgba(255,255,255,.09)}
+.fg textarea{min-height:110px;resize:vertical}
+.fg select option{background:var(--ink);color:#fff}
+.fs{padding:.85rem 2.2rem;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;transition:.2s var(--ez);letter-spacing:.04em}
+.fs:hover{background:var(--accent-h);transform:translateY(-2px)}
+.inf{margin-top:2.5rem}
+.inf-i{display:flex;gap:.8rem;margin-bottom:1.2rem;align-items:flex-start}
+.inf-ic{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem}
+.inf-i p{font-size:.85rem;color:rgba(255,255,255,.6)}.inf-i strong{color:#fff}
+.inf-box{margin-top:1.5rem;padding:1.2rem 1.5rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--r)}
+.inf-box p{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.8}
+.inf-box strong{color:rgba(255,255,255,.7)}
 
-    /* Corner marks */
-    .corner {
-      position: fixed;
-      width: 18px;
-      height: 18px;
-      z-index: 6;
-    }
-    .corner--tl { top: 36px; left: 36px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
-    .corner--tr { top: 36px; right: 36px; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
-    .corner--bl { bottom: 36px; left: 36px; border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
-    .corner--br { bottom: 36px; right: 36px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
-  </style>
+/* CONTACT FORM ALERTS */
+.alert{padding:.9rem 1.1rem;margin-bottom:1.2rem;border-left:3px solid;background:rgba(255,255,255,.06);font-size:.8rem;line-height:1.6;color:#fff;opacity:0;transform:translateY(-10px);animation:slideDown .4s ease forwards}
+@keyframes slideDown{to{opacity:1;transform:translateY(0)}}
+.alert.error{border-color:var(--error);color:#ff8a80}
+.alert.success{border-color:var(--success);color:#a5d6a7}
+.alert.info{border-color:var(--gold-l)}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-right:.5rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fs:disabled{opacity:.6;cursor:not-allowed}
+
+/* HERO / FOOTER LOGO */
+.hero-logo{width:min(180px,40vw);margin:0 auto 1.4rem;display:block;animation:fu .8s ease backwards}
+.footer-logo{width:72px;margin:0 auto 1rem;display:block;opacity:.9}
+
+/* FOOTER */
+footer{background:#111120;color:rgba(255,255,255,.35);padding:2rem 1.5rem;text-align:center;font-size:.72rem;letter-spacing:.04em}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.rv.vis{opacity:1;transform:translateY(0)}
+
+/* MOBILE */
+@media(max-width:900px){
+.dnav{display:none}.ham{display:block}
+.about-grid,.mem-split,.ct-wrap,.comp-grid{grid-template-columns:1fr}
+section{padding:3.5rem 1.2rem}
+.hero{min-height:70vh}
+.hero-euca{max-width:40%;opacity:.5}
+.quick-in{flex-direction:column;gap:.6rem}.quick-sep{display:none}
+.flow-steps{flex-direction:column;align-items:stretch}.flow-arrow{display:none}
+.comp-hero{flex-direction:column;gap:1.5rem;text-align:center}
+.comp-big{border-right:none;border-bottom:1px solid var(--light);padding:.5rem 0 1.5rem}
+.comp-bars li{grid-template-columns:100px 1fr 30px;gap:.5rem}
+.cb-name{font-size:.72rem}
+.fee-box{padding:1.2rem;overflow-x:auto}
+.fee-table{font-size:.8rem;min-width:480px}
+.fee-table th,.fee-table td{padding:.6rem .5rem}
+}
+</style>
+
 </head>
 <body>
 
-  <div class="corner corner--tl"></div>
-  <div class="corner corner--tr"></div>
-  <div class="corner corner--bl"></div>
-  <div class="corner corner--br"></div>
+<!-- NAV -->
 
-  <main class="wrapper">
-    <div class="logo-container">
-      <img src="BBC_logo01.png" alt="Buyokai Business Community">
+<div class="topbar" id="topbar">
+  <div class="tb-in">
+    <a href="#" class="logo"><div class="logo-m">BBC</div><div><div class="logo-t">武陽会ビジネスコミュニティ</div><div class="logo-s">BUYO BUSINESS COMMUNITY</div></div></a>
+    <ul class="dnav">
+      <li><a href="#about">BBCとは</a></li>
+      <li><a href="#schedule">スケジュール</a></li>
+      <li><a href="#membership">入会案内</a></li>
+      <li><a href="#announce">お知らせ</a></li>
+      <li><a href="#ads">会員告知</a></li>
+      <li><a href="#directory">会員構成</a></li>
+      <li><a href="#columns">コラム</a></li>
+      <li><a href="#board">掲示板</a></li>
+      <li><a href="#contact">お問合せ</a></li>
+    </ul>
+    <button class="ham" id="ham" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</div>
+<div class="mmenu" id="mm">
+  <a href="#about" onclick="cm()">BBCとは</a>
+  <a href="#schedule" onclick="cm()">📅 スケジュール</a>
+  <a href="#membership" onclick="cm()">📋 入会案内</a>
+  <a href="#announce" onclick="cm()">📢 お知らせ</a>
+  <a href="#ads" onclick="cm()">📣 会員の広告・告知</a>
+  <a href="#directory" onclick="cm()">👥 会員構成</a>
+  <a href="#columns" onclick="cm()">✍️ コラム</a>
+  <a href="#board" onclick="cm()">💬 掲示板</a>
+  <a href="#contact" onclick="cm()">✉️ お問い合わせ</a>
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-g"></div>
+  <!-- Eucalyptus silhouette background -->
+  <svg class="hero-euca left" viewBox="0 0 400 700" preserveAspectRatio="xMinYMax meet" aria-hidden="true">
+    <g class="euca-sway">
+      <!-- trunk -->
+      <path d="M 200 700 Q 195 500 210 350 Q 215 200 205 50" stroke="#8a9a8e" stroke-width="3" fill="none" opacity="0.35"/>
+      <!-- main branches -->
+      <path d="M 210 350 Q 260 330 310 310" stroke="#8a9a8e" stroke-width="2" fill="none" opacity="0.3"/>
+      <path d="M 215 250 Q 155 230 100 220" stroke="#8a9a8e" stroke-width="2" fill="none" opacity="0.3"/>
+      <path d="M 208 180 Q 255 155 295 130" stroke="#8a9a8e" stroke-width="1.8" fill="none" opacity="0.3"/>
+      <path d="M 205 100 Q 165 75 130 50" stroke="#8a9a8e" stroke-width="1.5" fill="none" opacity="0.28"/>
+      <!-- leaves - oval shape characteristic of eucalyptus -->
+      <g fill="#a8c4ab" opacity="0.4">
+        <ellipse cx="305" cy="305" rx="9" ry="18" transform="rotate(45 305 305)"/>
+        <ellipse cx="285" cy="295" rx="8" ry="16" transform="rotate(30 285 295)"/>
+        <ellipse cx="320" cy="325" rx="10" ry="19" transform="rotate(55 320 325)"/>
+        <ellipse cx="265" cy="280" rx="7" ry="15" transform="rotate(20 265 280)"/>
+        <ellipse cx="105" cy="215" rx="9" ry="17" transform="rotate(-45 105 215)"/>
+        <ellipse cx="85" cy="210" rx="10" ry="19" transform="rotate(-60 85 210)"/>
+        <ellipse cx="125" cy="225" rx="8" ry="16" transform="rotate(-30 125 225)"/>
+        <ellipse cx="145" cy="235" rx="7" ry="15" transform="rotate(-20 145 235)"/>
+        <ellipse cx="300" cy="125" rx="9" ry="18" transform="rotate(55 300 125)"/>
+        <ellipse cx="280" cy="140" rx="8" ry="16" transform="rotate(40 280 140)"/>
+        <ellipse cx="260" cy="150" rx="7" ry="14" transform="rotate(25 260 150)"/>
+        <ellipse cx="135" cy="55" rx="8" ry="16" transform="rotate(-40 135 55)"/>
+        <ellipse cx="115" cy="70" rx="7" ry="14" transform="rotate(-55 115 70)"/>
+        <ellipse cx="155" cy="45" rx="9" ry="17" transform="rotate(-25 155 45)"/>
+      </g>
+    </g>
+  </svg>
+  <svg class="hero-euca right" viewBox="0 0 400 700" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
+    <g class="euca-sway-r">
+      <path d="M 200 700 Q 210 520 195 380 Q 190 240 200 80" stroke="#8a9a8e" stroke-width="3" fill="none" opacity="0.35"/>
+      <path d="M 195 380 Q 140 360 90 345" stroke="#8a9a8e" stroke-width="2" fill="none" opacity="0.3"/>
+      <path d="M 200 280 Q 265 260 320 250" stroke="#8a9a8e" stroke-width="2" fill="none" opacity="0.3"/>
+      <path d="M 198 200 Q 145 175 110 155" stroke="#8a9a8e" stroke-width="1.8" fill="none" opacity="0.3"/>
+      <path d="M 200 120 Q 245 95 280 70" stroke="#8a9a8e" stroke-width="1.5" fill="none" opacity="0.28"/>
+      <g fill="#a8c4ab" opacity="0.4">
+        <ellipse cx="95" cy="340" rx="9" ry="18" transform="rotate(-45 95 340)"/>
+        <ellipse cx="115" cy="335" rx="10" ry="19" transform="rotate(-60 115 335)"/>
+        <ellipse cx="80" cy="348" rx="8" ry="16" transform="rotate(-30 80 348)"/>
+        <ellipse cx="135" cy="330" rx="7" ry="15" transform="rotate(-20 135 330)"/>
+        <ellipse cx="320" cy="245" rx="9" ry="17" transform="rotate(45 320 245)"/>
+        <ellipse cx="300" cy="255" rx="10" ry="19" transform="rotate(60 300 255)"/>
+        <ellipse cx="280" cy="258" rx="8" ry="16" transform="rotate(30 280 258)"/>
+        <ellipse cx="115" cy="150" rx="9" ry="18" transform="rotate(-55 115 150)"/>
+        <ellipse cx="135" cy="165" rx="8" ry="16" transform="rotate(-40 135 165)"/>
+        <ellipse cx="155" cy="175" rx="7" ry="14" transform="rotate(-25 155 175)"/>
+        <ellipse cx="285" cy="65" rx="8" ry="16" transform="rotate(40 285 65)"/>
+        <ellipse cx="265" cy="80" rx="7" ry="14" transform="rotate(55 265 80)"/>
+        <ellipse cx="300" cy="50" rx="9" ry="17" transform="rotate(25 300 50)"/>
+      </g>
+    </g>
+  </svg>
+  <div class="hero-c">
+    <img src="BBC_logo01.png" alt="武陽会ビジネスコミュニティ" class="hero-logo">
+    <div class="hero-badge">BUYO BUSINESS COMMUNITY ─ KOBE</div>
+    <h1>志ある経営者が<br><em>つながる場所</em></h1>
+    <p class="hero-sub">神戸で、ビジネスの未来を共に描く</p>
+    <a href="#contact" class="hero-cta">参加を申し込む →</a>
+  </div>
+</section>
+
+<!-- QUICK STRIP -->
+
+<div class="quick">
+  <div class="quick-in">
+    <div class="quick-item">📅 <strong>次回例会：2026年11月18日（水）18:30</strong></div>
+    <div class="quick-sep"></div>
+    <div class="quick-item">📍 老房（神戸市中央区）</div>
+  </div>
+</div>
+
+<!-- ═══ BBCとは ═══ -->
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-vis rv">
+        <svg class="about-euca" viewBox="0 0 300 300" aria-hidden="true">
+          <g>
+            <path d="M 150 300 Q 148 220 152 150 Q 155 80 150 20" stroke="#8a9a8e" stroke-width="2.5" fill="none" opacity="0.7"/>
+            <path d="M 152 150 Q 195 135 230 125" stroke="#8a9a8e" stroke-width="2" fill="none" opacity="0.6"/>
+            <path d="M 151 100 Q 110 85 75 80" stroke="#8a9a8e" stroke-width="2" fill="none" opacity="0.6"/>
+            <path d="M 150 200 Q 105 195 70 200" stroke="#8a9a8e" stroke-width="1.8" fill="none" opacity="0.55"/>
+            <path d="M 152 55 Q 190 40 215 28" stroke="#8a9a8e" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <g fill="#a8c4ab" opacity="0.75">
+              <ellipse cx="228" cy="120" rx="8" ry="16" transform="rotate(45 228 120)"/>
+              <ellipse cx="210" cy="128" rx="9" ry="18" transform="rotate(55 210 128)"/>
+              <ellipse cx="240" cy="115" rx="7" ry="15" transform="rotate(30 240 115)"/>
+              <ellipse cx="75" cy="75" rx="8" ry="16" transform="rotate(-50 75 75)"/>
+              <ellipse cx="95" cy="82" rx="9" ry="18" transform="rotate(-35 95 82)"/>
+              <ellipse cx="60" cy="85" rx="7" ry="15" transform="rotate(-60 60 85)"/>
+              <ellipse cx="68" cy="200" rx="8" ry="16" transform="rotate(-40 68 200)"/>
+              <ellipse cx="85" cy="195" rx="7" ry="14" transform="rotate(-25 85 195)"/>
+              <ellipse cx="215" cy="25" rx="8" ry="16" transform="rotate(40 215 25)"/>
+              <ellipse cx="195" cy="35" rx="7" ry="14" transform="rotate(25 195 35)"/>
+            </g>
+            <circle cx="175" cy="50" r="4" fill="#5a8f5f" opacity="0.8"/>
+            <circle cx="165" cy="80" r="3" fill="#5a8f5f" opacity="0.8"/>
+            <circle cx="190" cy="145" r="4" fill="#5a8f5f" opacity="0.8"/>
+            <circle cx="125" cy="180" r="3" fill="#5a8f5f" opacity="0.8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="rv">
+        <div class="sl">ABOUT BBC</div>
+        <h2 class="st">経営者同士の<br>本気の対話から生まれるもの</h2>
+        <p class="sd">武陽会ビジネスコミュニティ（BBC）は、神戸市を拠点に活動する経営者・事業主・企業幹部のための交流コミュニティです。士業から製造業、飲食、IT、医療まで幅広い業種の経営層が集う、本音のつながりを大切にするコミュニティです。</p>
+        <div class="about-values">
+          <span class="vtag">異業種交流</span>
+          <span class="vtag">相互紹介</span>
+          <span class="vtag">共同プロジェクト</span>
+          <span class="vtag">地域貢献</span>
+        </div>
+        <div class="about-stats">
+          <div class="about-stat"><strong>67名</strong><span>会員数</span></div>
+          <div class="about-stat"><strong>10業種+</strong><span>幅広い業界</span></div>
+          <div class="about-stat"><strong>年3回</strong><span>例会開催</span></div>
+        </div>
+      </div>
     </div>
-    <div class="divider"></div>
-    <p class="tagline">- 武陽会 ビジネスコミュニティ BBC -</p>
-    <nav class="nav-links">
-      <a href="contact.html">お問合せ</a>
-    </nav>
-  </main>
+
+```
+<div class="heritage rv">
+  <div class="heritage-label">HERITAGE ─ 「武陽」の由来</div>
+  <div class="heritage-body">
+    <p>BBCの「武陽」は、<strong>兵庫県立兵庫高等学校の美称「武陽」</strong>に由来します。同校のシンボルである校樹<strong>ユーカリ</strong>は、明治41年の二中創立時に運動場のまわりに150本の苗木が植えられ、校舎の屋根を越え30mに達する大樹となりました。一年中<strong>浅みどり色</strong>の葉を繁らせ、大空をめざして立つその姿が、いつしか校風のシンボルとなったのです。</p>
+    <p>校歌に「武陽ケ丘のあさみどり、白き雲わくユーカリに」と歌われるその<strong>浅みどり</strong>、そして校章・標準服ボタンに受け継がれる<strong>銀色</strong>──本サイトのテーマカラーもこの伝統に倣っています。</p>
+    <p>「質素・剛健・自重・自治 これを貫くに至誠をもってす」──兵庫高校に伝わる四綱領の精神を受け継ぎ、神戸の地で志ある経営者たちが集い、互いを高め合う場として、BBCは歩みを続けています。</p>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ═══ 【必須】スケジュール ═══ -->
+
+<section id="schedule" class="bg-c">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sl">SCHEDULE</div>
+      <h2 class="st">スケジュール</h2>
+      <p class="sd">例会の開催予定です。参加ご希望の方はお問い合わせフォームよりお申し込みください。</p>
+    </div>
+    <div class="sc-grid">
+      <div class="sc-card rv sc-past">
+        <div class="sc-date">2026年7月15日（水）</div>
+        <h3>BBC例会（総会）</h3>
+        <div class="sc-meta">🕕 受付 18:00 / 開始 18:30</div>
+        <div class="sc-meta">📍 老房（ラオファン）</div>
+        <div class="sc-meta" style="font-size:.76rem;padding-left:1.5rem">〒650-0011 神戸市中央区下山手通2-12-9</div>
+        <div class="sc-note">参加費：6,000円(食事・飲み放題付)</div>
+        <span class="sc-done">開催済み</span>
+      </div>
+      <div class="sc-card rv">
+        <div class="sc-date">2026年11月18日（水）</div>
+        <h3>BBC例会</h3>
+        <div class="sc-meta">🕕 受付 18:00 / 開始 18:30</div>
+        <div class="sc-meta">📍 老房（ラオファン）</div>
+        <div class="sc-meta" style="font-size:.76rem;padding-left:1.5rem">〒650-0011 神戸市中央区下山手通2-12-9</div>
+        <div class="sc-note">参加費：6,000円(食事・飲み放題付)</div>
+        <a href="#contact" class="sc-apply">参加を申し込む</a>
+      </div>
+      <div class="sc-card rv">
+        <div class="sc-date">2027年 ─ 日程調整中</div>
+        <h3>BBC例会</h3>
+        <div class="sc-meta">📍 老房（ラオファン）</div>
+        <div class="sc-note">詳細確定後にお知らせします</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 【必須】入会案内 ═══ -->
+
+<section id="membership">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sl">MEMBERSHIP</div>
+      <h2 class="st">入会案内</h2>
+      <p class="sd">経営者・事業主・企業幹部の方を対象としています。</p>
+    </div>
+    <div class="mem-intro rv">
+      <p>BBCは、神戸市周辺で事業を営む経営者・事業主・企業幹部の方を対象とした交流コミュニティです。代表者・役員・部門責任者など、事業に関する意思決定に携わる方のご参加をお待ちしています。例会でのプレゼンテーションやディスカッション、会員同士のビジネスマッチング、ゲスト講演など、多彩な活動を通じてビジネスの成長を支援します。</p>
+    </div>
+    <div class="mem-split">
+      <div class="mc rv">
+        <h3>ゲスト参加</h3>
+        <div class="mc-price">6,000<span>円</span></div>
+        <p class="mc-note">例会1回の参加費（食事・飲み放題付）</p>
+        <ul class="mc-list">
+          <li>例会に1回参加</li>
+          <li>食事・飲み放題付</li>
+          <li>メンバーとの名刺交換</li>
+          <li>BBCの活動を体験</li>
+        </ul>
+        <a href="#contact" class="btn btn-o">見学を申し込む</a>
+      </div>
+      <div class="mc feat rv">
+        <h3>正会員</h3>
+        <div class="mc-price">5,000<span>円/年</span></div>
+        <p class="mc-note">令和8年度 年会費（例会参加費は別途6,000円/回）</p>
+        <ul class="mc-list">
+          <li>例会への参加（年3回）</li>
+          <li>ビジネスマッチング</li>
+          <li>ホームページでの広告・告知掲載</li>
+          <li>会員限定の掲示板利用</li>
+          <li>ゲスト講演・勉強会への参加</li>
+          <li>運営への参加機会</li>
+        </ul>
+        <a href="#contact" class="btn btn-p">入会を申し込む</a>
+      </div>
+    </div>
+    <div class="fee-box rv">
+      <h3>費用の内訳</h3>
+      <table class="fee-table">
+        <tr>
+          <th>項目</th>
+          <th>金額</th>
+          <th>頻度</th>
+          <th>備考</th>
+        </tr>
+        <tr>
+          <td>年会費</td>
+          <td class="fee-amt">5,000円</td>
+          <td>年1回</td>
+          <td>令和8年度分</td>
+        </tr>
+        <tr>
+          <td>例会参加費</td>
+          <td class="fee-amt">6,000円</td>
+          <td>開催の都度</td>
+          <td>食事・飲み放題付</td>
+        </tr>
+        <tr class="fee-total">
+          <td>年間想定（参考）</td>
+          <td class="fee-amt">23,000円</td>
+          <td>年間合計</td>
+          <td>年会費 + 例会3回参加の場合</td>
+        </tr>
+      </table>
+    </div>
+
+```
+<div class="mem-flow rv">
+  <h3>入会の流れ</h3>
+  <div class="flow-steps">
+    <div class="flow-step"><span class="num">1</span>お問い合わせ</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="num">2</span>ゲスト参加</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="num">3</span>入会申込書提出</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="num">4</span>事務局承認</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="num">5</span>正会員として活動開始</div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ═══ 【必須】お知らせ ═══ -->
+
+<section id="announce" class="bg-c">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sl">ANNOUNCEMENTS</div>
+      <h2 class="st">事務局からのお知らせ</h2>
+      <p class="sd">連絡事項・ニュースを随時掲載しています。</p>
+    </div>
+    <div class="ann-list">
+      <div class="ann pin rv">
+        <div class="ann-h"><span class="ann-b">📌 お知らせ</span><span class="ann-d">2026.04.17</span></div>
+        <h3>BBC WEB対策班 結成完了</h3>
+        <p>ホームページ制作プロジェクト「BBC WEB対策班」のメンバーが決定し、本格的な制作・運用フェーズに移行しました。立候補いただいた皆様、ありがとうございました。今後のサイト更新・運用はWEB対策班が担当いたします。</p>
+      </div>
+      <div class="ann rv">
+        <div class="ann-h"><span class="ann-d">2026.04.15</span></div>
+        <h3>ホームページ制作が承認されました</h3>
+        <p>例会にて、BBC公式ホームページの制作が正式に承認されました。ドメインは buyobusiness.com を取得予定です。今後の進捗はこちらでお知らせいたします。</p>
+      </div>
+      <div class="ann rv">
+        <div class="ann-h"><span class="ann-d">2026.04.15</span></div>
+        <h3>例会を開催しました</h3>
+        <p>多数のご参加ありがとうございました。議事録・配布資料は後日会員向けに共有いたします。次回は7月15日（水）を予定しています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 【必須】会員の広告・告知 ═══ -->
+
+<section id="ads">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sl">MEMBER ADS</div>
+      <h2 class="st">会員の広告・告知</h2>
+      <p class="sd">会員の皆さまからの情報発信スペースです。</p>
+    </div>
+    <div class="ads-g">
+      <div class="ad rv">
+        <div class="ad-from">サンプル企業A 様</div>
+        <h3>新サービスのご案内</h3>
+        <p>○○に関する新サービスを開始しました。BBC会員特別価格でご提供中です。お気軽にお問い合わせください。</p>
+        <a href="#" class="ad-link">🔗 詳細を見る</a>
+      </div>
+      <div class="ad rv">
+        <div class="ad-from">サンプル企業B 様</div>
+        <h3>セミナー開催のお知らせ</h3>
+        <p>5月に「経営者のための○○セミナー」を開催します。BBC会員は参加無料。定員20名、先着順です。</p>
+        <a href="#" class="ad-link">🔗 お申し込み</a>
+      </div>
+      <div class="ad rv">
+        <div class="ad-from">サンプル企業C 様</div>
+        <h3>人材募集中</h3>
+        <p>営業職を1名募集しています。神戸市内勤務。BBC会員からのご紹介も歓迎です。</p>
+      </div>
+    </div>
+    <div class="note-box rv">
+      <strong>広告・告知の掲載について</strong><br>
+      BBC正会員であればどなたでも掲載いただけます。掲載をご希望の方は、以下の情報を事務局までお送りください。<br>
+      ① 会社名・担当者名　② タイトル　③ 告知内容（200字程度）　④ リンクURL（任意）<br>
+      ※ 掲載は事務局承認制です。公序良俗に反する内容はお断りする場合があります。<br>
+      ※ 掲載期間は原則3ヶ月間です。延長をご希望の場合は事務局までご連絡ください。
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 会員構成（統計） ═══ -->
+
+<section id="directory" class="bg-c">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sl">MEMBER COMPOSITION</div>
+      <h2 class="st">会員構成</h2>
+      <p class="sd">BBCには多業種の経営者・事業主・企業幹部が集まっています。</p>
+    </div>
+
+```
+<div class="comp-hero rv">
+  <div class="comp-big">
+    <div class="comp-num">67</div>
+    <div class="comp-label">会員数</div>
+  </div>
+  <div class="comp-quote">
+    「士業から製造業、飲食、IT、医療まで ─<br>
+    神戸を中心とした幅広い業種の経営層が集う場です」
+  </div>
+</div>
+
+<div class="comp-grid">
+  <div class="comp-box rv">
+    <h3>業種構成</h3>
+    <ul class="comp-bars">
+      <li><span class="cb-name">サービス・その他</span><span class="cb-bar"><span class="cb-fill" style="width:100%"></span></span><span class="cb-num">23</span></li>
+      <li><span class="cb-name">士業</span><span class="cb-bar"><span class="cb-fill" style="width:52%"></span></span><span class="cb-num">12</span></li>
+      <li><span class="cb-name">飲食・食品</span><span class="cb-bar"><span class="cb-fill" style="width:35%"></span></span><span class="cb-num">8</span></li>
+      <li><span class="cb-name">IT・デジタル</span><span class="cb-bar"><span class="cb-fill" style="width:22%"></span></span><span class="cb-num">5</span></li>
+      <li><span class="cb-name">製造・建設業</span><span class="cb-bar"><span class="cb-fill" style="width:22%"></span></span><span class="cb-num">5</span></li>
+      <li><span class="cb-name">運輸・自動車</span><span class="cb-bar"><span class="cb-fill" style="width:17%"></span></span><span class="cb-num">4</span></li>
+      <li><span class="cb-name">建設・建築</span><span class="cb-bar"><span class="cb-fill" style="width:13%"></span></span><span class="cb-num">3</span></li>
+      <li><span class="cb-name">医療・福祉・文化</span><span class="cb-bar"><span class="cb-fill" style="width:13%"></span></span><span class="cb-num">3</span></li>
+      <li><span class="cb-name">不動産</span><span class="cb-bar"><span class="cb-fill" style="width:9%"></span></span><span class="cb-num">2</span></li>
+      <li><span class="cb-name">政治・公共</span><span class="cb-bar"><span class="cb-fill" style="width:9%"></span></span><span class="cb-num">2</span></li>
+    </ul>
+    <p class="comp-note">士業（弁護士・税理士・会計士・司法書士・社労士・行政書士・不動産鑑定士等）が充実しているのも特徴です。</p>
+  </div>
+
+  <div class="comp-box rv">
+    <h3>エリア構成</h3>
+    <ul class="comp-bars">
+      <li><span class="cb-name">神戸市内</span><span class="cb-bar"><span class="cb-fill" style="width:100%"></span></span><span class="cb-num">49</span></li>
+      <li><span class="cb-name">阪神間</span><span class="cb-bar"><span class="cb-fill" style="width:8%"></span></span><span class="cb-num">4</span></li>
+      <li><span class="cb-name">大阪方面</span><span class="cb-bar"><span class="cb-fill" style="width:8%"></span></span><span class="cb-num">4</span></li>
+    </ul>
+
+    <h3 style="margin-top:1.5rem">神戸市内の内訳</h3>
+    <div class="ward-grid">
+      <div class="ward"><strong>14</strong><span>兵庫区</span></div>
+      <div class="ward"><strong>11</strong><span>北区</span></div>
+      <div class="ward"><strong>11</strong><span>中央区</span></div>
+      <div class="ward"><strong>6</strong><span>須磨区</span></div>
+      <div class="ward"><strong>4</strong><span>長田区</span></div>
+      <div class="ward"><strong>2</strong><span>西区</span></div>
+      <div class="ward"><strong>1</strong><span>垂水区</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="gov-grid rv">
+  <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem">陽会（入会年次）の分布</h3>
+  <p style="font-size:.82rem;color:var(--warm);margin-bottom:1rem;line-height:1.8">BBCは<strong>44陽会から108陽会まで、約60年の世代にわたる</strong>武陽会会員が集うコミュニティです。<br><span style="font-size:.76rem">※「陽会」とは武陽会（兵庫高校同窓会）の入会年次区分。兵庫二中1回生の卒業年から数えた年次です。</span></p>
+  <ul class="comp-bars" style="margin-top:1rem">
+    <li><span class="cb-name">〜59陽会</span><span class="cb-bar"><span class="cb-fill" style="width:67%"></span></span><span class="cb-num">12</span></li>
+    <li><span class="cb-name">60〜69陽会</span><span class="cb-bar"><span class="cb-fill" style="width:72%"></span></span><span class="cb-num">13</span></li>
+    <li><span class="cb-name">70〜79陽会</span><span class="cb-bar"><span class="cb-fill" style="width:44%"></span></span><span class="cb-num">8</span></li>
+    <li><span class="cb-name">80〜89陽会</span><span class="cb-bar"><span class="cb-fill" style="width:100%"></span></span><span class="cb-num">18</span></li>
+    <li><span class="cb-name">90〜99陽会</span><span class="cb-bar"><span class="cb-fill" style="width:72%"></span></span><span class="cb-num">13</span></li>
+    <li><span class="cb-name">100陽会〜</span><span class="cb-bar"><span class="cb-fill" style="width:17%"></span></span><span class="cb-num">3</span></li>
+  </ul>
+  <p style="font-size:.76rem;color:var(--warm);margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--light);line-height:1.7">中央値は<strong>80陽会</strong>。先輩世代の知見と若手世代の行動力が交わる、世代を超えたネットワークが強みです。</p>
+</div>
+
+<div class="gov-grid rv">
+  <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem">運営体制</h3>
+  <div class="gov-list">
+    <div class="gov-item"><span class="gov-role">代表</span><span class="gov-count">1名</span></div>
+    <div class="gov-item"><span class="gov-role">副代表</span><span class="gov-count">2名</span></div>
+    <div class="gov-item"><span class="gov-role">事務局長</span><span class="gov-count">1名</span></div>
+    <div class="gov-item"><span class="gov-role">運営委員</span><span class="gov-count">6名</span></div>
+    <div class="gov-item"><span class="gov-role">監事</span><span class="gov-count">1名</span></div>
+    <div class="gov-item"><span class="gov-role">顧問</span><span class="gov-count">2名</span></div>
+  </div>
+</div>
+
+<div class="note-box rv">
+  <strong>会員情報の取り扱いについて</strong><br>
+  BBCは会員のプライバシーを最優先に考え、個人情報（氏名・連絡先等）はウェブサイト上に公開しておりません。<br>
+  会員相互の連絡は、会員限定の内部名簿にて管理しています。会員間のやり取りをご希望の場合は事務局までご連絡ください。<br>
+  ※ 会員情報は内部管理に限定し、第三者への提供は一切行っておりません。
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ═══ 【状況対応】コラム ═══ -->
+
+<section id="columns">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sl">COLUMNS</div>
+      <h2 class="st">コラム・活動履歴</h2>
+      <p class="sd">会員の気まぐれ通信、活動レポートなど。</p>
+    </div>
+    <div class="col-list">
+      <div class="col rv">
+        <div class="col-m">2026.04.16 ─ 事務局</div>
+        <h3>BBCホームページ開設のご挨拶</h3>
+        <p>武陽会ビジネスコミュニティの公式ホームページを開設いたしました。今後、スケジュールやお知らせ、会員の皆様の情報発信の場としてご活用ください。コラムの投稿も随時受け付けていますので、ぜひお気軽にお寄せください。</p>
+      </div>
+      <div class="col rv">
+        <div class="col-m">2026.04.15 ─ 会員 Aさん</div>
+        <h3>例会に参加して ─ 異業種交流の面白さ</h3>
+        <p>先日の例会に初めて参加しました。普段は全く接点のない業種の経営者の方とお話しする機会がこんなに刺激的だとは。特に○○の話は目からウロコでした。次回もぜひ参加したいと思います。</p>
+      </div>
+    </div>
+    <div class="note-box rv">
+      <strong>コラム投稿について</strong><br>
+      BBC正会員であればどなたでもコラムを投稿いただけます。ビジネスの気づき、イベント参加レポート、業界トレンドなど、テーマは自由です。<br>
+      投稿をご希望の方は、原稿（テキスト形式）を事務局までメールでお送りください。事務局レビュー後に掲載いたします。<br>
+      ※ 将来的には直接投稿フォームからの掲載も検討しています。
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 【状況対応】掲示板 ═══ -->
+
+<section id="board" class="bg-c">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sl">BULLETIN BOARD</div>
+      <h2 class="st">掲示板</h2>
+      <p class="sd">会員間の情報交換・相談スペースです。</p>
+    </div>
+    <div class="brd-list">
+      <div class="brd rv">
+        <div class="brd-m">2026.04.16 ─ 事務局 <span class="brd-tag">お知らせ</span></div>
+        <h3>掲示板を開設しました</h3>
+        <p>会員の皆様の情報交換・相談スペースとして掲示板を開設しました。ビジネスの相談、おすすめ情報の共有、協業の相手探しなど、自由にご活用ください。現在は事務局経由での投稿ですが、将来的に直接投稿フォームを実装予定です。</p>
+        <div class="brd-reps">
+          <div class="rp">
+            <div class="rp-m">2026.04.16 ─ 会員 Aさん</div>
+            <p>開設ありがとうございます！早速活用させていただきます。</p>
+          </div>
+          <div class="rp">
+            <div class="rp-m">2026.04.16 ─ 会員 Bさん</div>
+            <p>こういう場があると助かります。情報交換が捗りそうですね。</p>
+          </div>
+        </div>
+        <button class="rp-btn">💬 返信する</button>
+      </div>
+      <div class="brd rv">
+        <div class="brd-m">2026.04.15 ─ 会員 Cさん <span class="brd-tag">質問</span></div>
+        <h3>神戸市の補助金情報について</h3>
+        <p>今年度の小規模事業者向け補助金の情報をお持ちの方はいらっしゃいますか？特にIT導入関連の補助金について知りたいです。直接やり取りできる方は名簿の連絡先からご連絡いただいても構いません。</p>
+        <button class="rp-btn">💬 返信する</button>
+      </div>
+    </div>
+    <div class="brd-rules rv">
+      <h4>掲示板の利用ガイドライン</h4>
+      <ul>
+        <li>閲覧はどなたでも可能です</li>
+        <li>投稿・返信は現在、事務局経由で受け付けています（フェーズ2で直接投稿機能を実装予定）</li>
+        <li>投稿内容は事務局がモデレーションを行います</li>
+        <li>公序良俗に反する投稿、特定個人・団体への誹謗中傷、営利目的のスパム等は削除対象です</li>
+        <li>広告・宣伝は「会員の広告・告知」欄をご利用ください</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ お問い合わせ ═══ -->
+
+<section id="contact" class="ct-dark">
+  <div class="wrap">
+    <div class="ct-wrap">
+      <div class="rv">
+        <div class="sl">CONTACT</div>
+        <h2 class="st">お問い合わせ</h2>
+        <p class="sd">ご質問・参加のお申し込みなど、お気軽にどうぞ。</p>
+        <div id="alerts-container"></div>
+        <form id="contactForm" method="POST" action="contact-handler.php" novalidate style="margin-top:1.5rem">
+          <div class="fg"><label for="name">お名前 *</label><input type="text" id="name" name="name" placeholder="例：山田 太郎" required></div>
+          <div class="fg"><label for="company">会社名</label><input type="text" id="company" name="company" placeholder="例：株式会社〇〇"></div>
+          <div class="fg"><label for="email">メールアドレス *</label><input type="email" id="email" name="email" placeholder="example@company.co.jp" required></div>
+          <div class="fg"><label for="phone">電話番号</label><input type="tel" id="phone" name="phone" placeholder="078-XXX-XXXX"></div>
+          <div class="fg"><label for="subject">お問い合わせ種別 *</label>
+            <select id="subject" name="subject" required>
+              <option value="">選択してください</option>
+              <option value="event">ゲスト参加の申し込み</option>
+              <option value="membership">入会に関するお問い合わせ</option>
+              <option value="partnership">広告・告知の掲載依頼</option>
+              <option value="other">コラム投稿</option>
+              <option value="other">掲示板への投稿依頼</option>
+              <option value="inquiry">その他のお問い合わせ</option>
+            </select>
+          </div>
+          <div class="fg"><label for="message">メッセージ *</label><textarea id="message" name="message" placeholder="お問い合わせ内容をご記入ください" required></textarea></div>
+          <button type="submit" id="submitBtn" class="fs">送信する</button>
+        </form>
+      </div>
+      <div class="rv">
+        <div class="inf">
+          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:1.2rem;color:#fff">武陽会ビジネスコミュニティ事務局</h3>
+          <div class="inf-i"><div class="inf-ic">👤</div><div><p><strong>事務局長</strong></p><p>杉井 俊哉（司法書士事務所KEIZO 代表）</p></div></div>
+          <div class="inf-i"><div class="inf-ic">📍</div><div><p><strong>所在地</strong></p><p>〒651-1145<br>神戸市北区惣山町三丁目16番地5</p></div></div>
+          <div class="inf-i"><div class="inf-ic">📱</div><div><p><strong>電話</strong></p><p>078-593-2048</p></div></div>
+          <div class="inf-i"><div class="inf-ic">📠</div><div><p><strong>FAX</strong></p><p>078-593-2062<br><span style="font-size:.72rem;opacity:.6">（司法書士事務所KEIZO内）</span></p></div></div>
+          <div class="inf-i"><div class="inf-ic">✉️</div><div><p><strong>Eメール</strong></p><p>hyogobbc@gmail.com</p></div></div>
+          <div class="inf-i"><div class="inf-ic">📅</div><div><p><strong>例会</strong></p><p>年3回開催</p></div></div>
+          <div class="inf-i"><div class="inf-ic">🌐</div><div><p><strong>ウェブサイト</strong></p><p>buyobusiness.com</p></div></div>
+        </div>
+        <div class="inf-box">
+          <p><strong>参加対象</strong><br>神戸市周辺で事業を営む経営者・事業主・企業幹部（役員・部門責任者等）の方。業種・規模は問いません。事業上の意思決定に携わり、志を持ってビジネスに取り組む方のご参加をお待ちしています。<br><span style="color:rgba(255,255,255,.35);font-size:.75rem">※ 個人の営業活動を目的としたご参加はお断りしております。</span></p>
+        </div>
+        <div class="inf-box" style="margin-top:1rem">
+          <p><strong>このサイトでできること</strong><br>
+          📅 スケジュール ─ 次回例会の日程・参加申込<br>
+          📋 入会案内 ─ 会員メリット・入会手続き<br>
+          📢 お知らせ ─ 事務局からの重要連絡<br>
+          📣 会員告知 ─ 会員の広告・サービスPR（事務局承認制）<br>
+          👥 会員構成 ─ 業種・エリアの統計表示<br>
+          ✍️ コラム ─ 気まぐれ通信・活動レポート（事務局レビュー後掲載）<br>
+          💬 掲示板 ─ 会員間の情報交換（モデレーションあり）</p>
+        </div>
+        <div class="inf-box" style="margin-top:1rem">
+          <p><strong>運営</strong><br>
+          BBC WEB対策班（2026年4月発足）<br>
+          コンテンツの更新は四半期レビュー + 随時対応で運用しています。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <img src="BBC_logo01.png" alt="武陽会ビジネスコミュニティ" class="footer-logo">
+  <p>&copy; 2026 武陽会ビジネスコミュニティ（BBC）─ buyobusiness.com ─ All Rights Reserved.</p>
+</footer>
+
+<script>
+const tb=document.getElementById('topbar');
+window.addEventListener('scroll',()=>tb.classList.toggle('scrolled',scrollY>40));
+const hm=document.getElementById('ham'),mm=document.getElementById('mm');
+hm.addEventListener('click',()=>{hm.classList.toggle('on');mm.classList.toggle('show')});
+function cm(){hm.classList.remove('on');mm.classList.remove('show')}
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+document.querySelectorAll('.rp-btn').forEach(b=>b.addEventListener('click',()=>alert('返信機能はフェーズ2で実装予定です。\n現在は事務局（お問い合わせフォーム）経由でご投稿ください。')));
+</script>
+<script src="contact.js"></script>
 
 </body>
 </html>

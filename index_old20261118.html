@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buyokai Business Community</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --ink: #1a1a18;
+      --paper: #f8f6f1;
+      --muted: #9a9690;
+      --accent: #c8b89a;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Subtle grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.4;
+    }
+
+    /* Thin decorative border */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 24px;
+      border: 1px solid rgba(26,26,24,0.12);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: reveal 1.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s forwards;
+    }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-container {
+      width: min(320px, 55vw);
+      aspect-ratio: 1;
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+
+    /* Soft radial glow behind logo */
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(ellipse at center, rgba(200,184,154,0.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .divider {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      margin: 20px 0 16px;
+      opacity: 0;
+      animation: reveal 1.2s ease 1.2s forwards;
+    }
+
+    .tagline {
+      font-size: clamp(10px, 1.5vw, 12px);
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-style: italic;
+      opacity: 0;
+      animation: reveal 1.2s ease 1.5s forwards;
+      margin-bottom: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      opacity: 0;
+      animation: reveal 1.2s ease 1.8s forwards;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      border: 1px solid rgba(200,184,154,0.4);
+      padding: 8px 16px;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* Corner marks */
+    .corner {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      z-index: 6;
+    }
+    .corner--tl { top: 36px; left: 36px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+    .corner--tr { top: 36px; right: 36px; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+    .corner--bl { bottom: 36px; left: 36px; border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+    .corner--br { bottom: 36px; right: 36px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+  </style>
+</head>
+<body>
+
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
+
+  <main class="wrapper">
+    <div class="logo-container">
+      <img src="BBC_logo01.png" alt="Buyokai Business Community">
+    </div>
+    <div class="divider"></div>
+    <p class="tagline">- 武陽会 ビジネスコミュニティ BBC -</p>
+    <nav class="nav-links">
+      <a href="contact.html">お問合せ</a>
+    </nav>
+  </main>
+
+</body>
+</html>
